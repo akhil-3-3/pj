@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const CartContext = createContext();
 
@@ -9,7 +9,16 @@ export const CartProvider = ({ children }) => {
 
   const [orders, setOrders] = useState([]);
 
+  useEffect(() => {
+    console.log("cartItems=", cartItems);
+  }, [cartItems]);
+
+  useEffect(() => {
+    console.log("orders=", orders);
+  }, [orders]);
+
   const increaseQty = (id, size) => {
+    console.log(id, size);
     setCartItems((prev) =>
       prev.map((item) =>
         item.id === id
@@ -74,7 +83,7 @@ export const CartProvider = ({ children }) => {
     setOrders((prev) =>
       prev
         .map((item) => {
-          if (item.id !== id) return item;
+          if (item.orderId !== id) return item;
 
           const newSizes = { ...item.sizes };
           delete newSizes[size];

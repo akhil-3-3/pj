@@ -1,8 +1,10 @@
 import { Minus, Plus } from "lucide-react";
 import { useCart } from "./CartContext";
+import { useItem } from "./ProductContext1";
 
 const Cart = ({ totalPrice, placeOrder }) => {
   const { cartItems, increaseQty, decreaseQty, setOrders } = useCart();
+  const { setProducts } = useItem();
 
   return (
     <div className="p-4 flex flex-col h-full">
@@ -29,11 +31,11 @@ const Cart = ({ totalPrice, placeOrder }) => {
                   </span>
 
                   <div className="flex items-center gap-2">
-                    <button onClick={() => decreaseQty(pIndex, size)}>
+                    <button onClick={() => decreaseQty(product.id, size)}>
                       <Minus size={14} />
                     </button>
                     <span>{data.qty}</span>
-                    <button onClick={() => increaseQty(pIndex, size)}>
+                    <button onClick={() => increaseQty(product.id, size)}>
                       <Plus size={14} />
                     </button>
                   </div>
@@ -52,7 +54,32 @@ const Cart = ({ totalPrice, placeOrder }) => {
           </div>
 
           <button
-            onClick={() => setOrders(cartItems)}
+            onClick={() => {
+              setProducts((prev) =>
+                prev.map((p) => {
+                  const cartItem = cartItems.find((c) => c.id === p.id);
+
+                  if (!cartItem) return p;
+                  const newStock =
+                    p.stock -
+                    Object.values(cartItem.sizes).reduce(
+                      (sum, item) => sum + item.qty,
+                      0,
+                    );
+                  if (newStock < 0) {
+                    return p;
+                  }
+                  setOrders((prev) => [
+                    ...prev,
+                    ...cartItems.map((c) => ({
+                      ...c,
+                      orderId: crypto.randomUUID(),
+                    })),
+                  ]);
+                  return { ...p, stock: newStock };
+                }),
+              );
+            }}
             className="w-full bg-green-600 text-white py-2 rounded"
           >
             Place Order

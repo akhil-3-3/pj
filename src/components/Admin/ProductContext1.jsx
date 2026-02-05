@@ -6,7 +6,7 @@ export const ProductProvider1 = ({ children }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    console.log(products);
+    console.log("products=", products);
   }, [products]);
 
   const addProduct = (obj) => {
@@ -25,7 +25,7 @@ export const ProductProvider1 = ({ children }) => {
 
   return (
     <ProductContext1.Provider
-      value={{ products, addProduct, deleteProduct, editProduct }}
+      value={{ products, addProduct, deleteProduct, editProduct, setProducts }}
     >
       {children}
     </ProductContext1.Provider>

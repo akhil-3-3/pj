@@ -65,7 +65,7 @@ const Order = () => {
 
                 <td>
                   <button
-                    onClick={() => deleteOrder2(o.id, size)}
+                    onClick={() => deleteOrder2(o.orderId, size)}
                     className="bg-red-600 text-white px-3 py-1 rounded"
                   >
                     Delete

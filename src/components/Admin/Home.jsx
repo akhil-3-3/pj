@@ -110,9 +110,7 @@ const Home = () => {
                   className="w-full h-40 object-cover rounded mb-2"
                 />
               )}
-
               <h2 className="font-semibold">{p.name}</h2>
-
               <div className="text-sm mt-1">
                 {sizesList.map(
                   (s) =>
@@ -123,7 +121,6 @@ const Home = () => {
                     ),
                 )}
               </div>
-
               <div className="flex gap-2 mt-2">
                 {sizesList.map(
                   (s) =>
@@ -162,7 +159,12 @@ const Home = () => {
                   COD
                 </label>
               </div>
-
+              {p.stock <= 5 && p.stock != 0 && (
+                <p className="flex text-red-600">Stock is Running Out!!!</p>
+              )}
+              {p.stock === 0 && (
+                <p className="flex text-red-600">Out of Stock!!!</p>
+              )}
               <button
                 onClick={() => addToCart(p)}
                 className="mt-3 w-full bg-black text-white py-1 rounded"
