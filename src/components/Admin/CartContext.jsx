@@ -1,24 +1,26 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 const CartContext = createContext();
-
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    const stored = localStorage.getItem("categories");
+    return stored ? JSON.parse(stored) : [];
+  });
+   const [orders, setOrders] = useState(() => {
+    const stored = localStorage.getItem("orders");
+    return stored ? JSON.parse(stored) : [];
+  });
 
-  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    console.log("cartItems=", cartItems);
+    localStorage.setItem("categories", JSON.stringify(cartItems));
   }, [cartItems]);
-
-  useEffect(() => {
-    console.log("orders=", orders);
+ useEffect(() => {
+    localStorage.setItem("orders", JSON.stringify(orders));
   }, [orders]);
-
   const increaseQty = (id, size) => {
-    console.log(id, size);
     setCartItems((prev) =>
       prev.map((item) =>
         item.id === id
@@ -32,8 +34,8 @@ export const CartProvider = ({ children }) => {
                 },
               },
             }
-          : item,
-      ),
+          : item
+      )
     );
   };
 
@@ -51,15 +53,12 @@ export const CartProvider = ({ children }) => {
             },
           };
 
-          if (newSizes[size].qty <= 0) {
-            delete newSizes[size];
-          }
-
+          if (newSizes[size].qty <= 0) delete newSizes[size];
           if (Object.keys(newSizes).length === 0) return null;
 
           return { ...item, sizes: newSizes };
         })
-        .filter(Boolean),
+        .filter(Boolean)
     );
   };
 
@@ -73,12 +72,12 @@ export const CartProvider = ({ children }) => {
           delete newSizes[size];
 
           if (Object.keys(newSizes).length === 0) return null;
-
           return { ...item, sizes: newSizes };
         })
-        .filter(Boolean),
+        .filter(Boolean)
     );
   };
+
   const deleteOrder2 = (id, size) => {
     setOrders((prev) =>
       prev
@@ -89,10 +88,9 @@ export const CartProvider = ({ children }) => {
           delete newSizes[size];
 
           if (Object.keys(newSizes).length === 0) return null;
-
           return { ...item, sizes: newSizes };
         })
-        .filter(Boolean),
+        .filter(Boolean)
     );
   };
 
@@ -101,11 +99,11 @@ export const CartProvider = ({ children }) => {
       value={{
         cartItems,
         setCartItems,
+        orders,
+        setOrders,
         increaseQty,
         decreaseQty,
         deleteOrder,
-        setOrders,
-        orders,
         deleteOrder2,
       }}
     >

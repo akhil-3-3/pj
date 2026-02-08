@@ -3,7 +3,14 @@ import { createContext, useContext, useState, useEffect } from "react";
 const ProductContext1 = createContext(null);
 
 export const ProductProvider1 = ({ children }) => {
-  const [products, setProducts] = useState([]);
+
+   const [products, setProducts] = useState(() => {
+    const stored = localStorage.getItem("products");
+    return stored ? JSON.parse(stored) : [];
+  });
+   useEffect(() => {
+     localStorage.setItem("products", JSON.stringify(products));
+   }, [products]);
 
   useEffect(() => {
     console.log("products=", products);
