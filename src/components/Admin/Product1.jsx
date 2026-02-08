@@ -14,32 +14,28 @@ const Product1 = () => {
   const [stock, setStock] = useState("");
   const [sizes, setSizes] = useState({});
   const [otype, setOtype] = useState([]);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
 
   const [editId, setEditId] = useState(null);
   const [showForm, setShowForm] = useState(false);
 
   const handleSizeChange = (size) => {
-    setSizes((prev) => {
-      if (prev[size] !== undefined) {
-        const updated = { ...prev };
-        delete updated[size];
-        return updated;
-      }
-      return { ...prev, [size]: "" };
-    });
+    setSizes((prev) =>
+      prev[size] !== undefined
+        ? Object.fromEntries(Object.entries(prev).filter(([k]) => k !== size))
+        : { ...prev, [size]: "" },
+    );
   };
 
   const handleSizeValueChange = (size, value) => {
-    setSizes((prev) => ({
-      ...prev,
-      [size]: value,
-    }));
+    setSizes((prev) => ({ ...prev, [size]: value }));
   };
 
   const handleOrderChange = (order) => {
     setOtype((prev) =>
-      prev.includes(order) ? prev.filter((o) => o !== order) : [...prev, order],
+      prev.includes(order)
+        ? prev.filter((o) => o !== order)
+        : [...prev, order],
     );
   };
 
@@ -49,7 +45,7 @@ const Product1 = () => {
     setStock("");
     setSizes({});
     setOtype([]);
-    setImage(null);
+    setImage("");
     setEditId(null);
     setShowForm(false);
   };
@@ -79,7 +75,7 @@ const Product1 = () => {
 
       <table className="w-full border text-center mb-5">
         <thead>
-          <tr className="border bg-gray-500">
+          <tr className="border bg-gray-500 text-white">
             <th>Image</th>
             <th>Name</th>
             <th>Category</th>
@@ -93,12 +89,12 @@ const Product1 = () => {
         <tbody>
           {products.map((p) => (
             <tr key={p.id} className="border">
-              <td>
+              <td className="p-3">
                 {p.image && (
                   <img
-                    className="w-12 h-12 mx-auto"
-                    src={URL.createObjectURL(p.image)}
-                    alt=""
+                    src={p.image}
+                    alt={p.name}
+                    className="w-12 h-12 mx-auto object-cover"
                   />
                 )}
               </td>
@@ -117,7 +113,7 @@ const Product1 = () => {
               </td>
 
               <td>
-                <div className="flex items-center justify-center gap-2">
+                <div className="flex gap-2 justify-center">
                   <button
                     className="bg-yellow-400 px-2"
                     onClick={() => {
@@ -127,7 +123,7 @@ const Product1 = () => {
                       setStock(p.stock);
                       setSizes(p.sizes || {});
                       setOtype(p.otype || []);
-                      setImage(p.image);
+                      setImage(p.image || "");
                       setShowForm(true);
                     }}
                   >
@@ -188,7 +184,6 @@ const Product1 = () => {
             onChange={(e) => setStock(e.target.value)}
           />
 
-          
           <div className="flex flex-col gap-2 mb-3">
             {sizesList.map((s) => (
               <div key={s} className="flex items-center gap-3">
@@ -204,9 +199,10 @@ const Product1 = () => {
                 {sizes[s] !== undefined && (
                   <input
                     type="number"
-                    placeholder={`${s} stock`}
                     value={sizes[s]}
-                    onChange={(e) => handleSizeValueChange(s, e.target.value)}
+                    onChange={(e) =>
+                      handleSizeValueChange(s, e.target.value)
+                    }
                     className="border px-2 py-1 rounded w-24"
                   />
                 )}
@@ -217,7 +213,14 @@ const Product1 = () => {
           <input
             type="file"
             accept="image/*"
-            onChange={(e) => setImage(e.target.files[0])}
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (!file) return;
+
+              const reader = new FileReader();
+              reader.onload = (ev) => setImage(ev.target.result);
+              reader.readAsDataURL(file);
+            }}
           />
 
           <div className="flex gap-2 mt-3">

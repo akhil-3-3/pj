@@ -105,7 +105,7 @@ const Home = () => {
             <div key={p.id} className="bg-white p-4 rounded shadow">
               {p.image && (
                 <img
-                  src={URL.createObjectURL(p.image)}
+                  src={(p.image)}
                   alt={p.name}
                   className="w-full h-40 object-cover rounded mb-2"
                 />

@@ -48,7 +48,7 @@ const Order = () => {
                   {o.image && (
                     <img
                       className="w-12 h-12 mx-auto object-cover"
-                      src={URL.createObjectURL(o.image)}
+                      src={(o.image)}
                       alt={o.name}
                     />
                   )}
