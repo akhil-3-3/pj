@@ -225,7 +225,7 @@ const Product1 = () => {
 
           <div className="flex gap-2 mt-3">
             <button
-              className="bg-green-600 text-white px-4"
+              className="bg-green-600 text-white px-4 "
               onClick={handleSubmit}
             >
               {editId ? "Update" : "Add"}
