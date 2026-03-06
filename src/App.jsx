@@ -82,6 +82,7 @@ import BestSeller from "./components/ECommerce/BestSeller";
 import { Features } from "tailwindcss";
 import Feature from "./components/ECommerce/Feature";
 import Footer from "./components/ECommerce/Footer";
+import ProductDetails from "./components/ECommerce/ProductDetails";
 
 const App = () => {
   // const [uname, setUname] = useState("");
@@ -112,10 +113,20 @@ const App = () => {
     // <Students />
     <div>
       <Navbar />
-      <Hero />
-      <Collections />
-      <BestSeller />
-      <Feature />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Hero />
+              <Collections />
+              <BestSeller />
+              <Feature />
+            </>
+          }
+        />
+        <Route path="/product/:id" element={<ProductDetails />} />
+      </Routes>
       <Footer />
     </div>
   );

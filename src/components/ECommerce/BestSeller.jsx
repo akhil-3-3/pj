@@ -1,5 +1,6 @@
 import React from "react";
 import { pics } from "../../assets/data";
+import { Link } from "react-router-dom";
 
 const BestSeller = () => {
   return (
@@ -12,21 +13,24 @@ const BestSeller = () => {
       </div>
 
       <p className="text-gray-500 text-center p-4 mb-5 max-w-2xl mx-auto">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
       </p>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
         {pics.slice(0, 5).map((item, index) => (
-          <div key={index}>
-            <div className="overflow-hidden">
-              <img src={item.img} alt={item.name} className="w-full" />
-            </div>
+          <Link to={`/product/${item.id}`}>
+            <div key={index}>
+              <div className="overflow-hidden">
+                <img src={item.img} alt={item.name} className="w-full" />
+              </div>
 
-            <div className="mt-3">
-              <p className="text-sm text-gray-600">{item.name}</p>
-              <p className="text-sm font-semibold mt-1">${item.price}</p>
+              <div className="mt-3">
+                <p className="text-sm text-gray-600">{item.name}</p>
+                <p className="text-sm font-semibold mt-1">${item.price}</p>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

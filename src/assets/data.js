@@ -22,6 +22,8 @@ import img22 from "./Rectangle 3635.png";
 import exchange from "./exchange_icon.png";
 import quality from "./quality_icon.png";
 import support from "./support_img.png";
+import star1 from "./star_icon.png";
+import star2 from "./star_dull_icon.png";
 
 export const images = {
   search,
@@ -32,54 +34,66 @@ export const images = {
   exchange,
   quality,
   support,
+  star1,
+  star2,
 };
 export const pics = [
   {
+    id: 1,
     name: "Women Round Neck Cotton Top",
     price: "149",
     img: img8,
   },
   {
+    id: 2,
     name: "Women Round Neck Cotton Top",
     price: "149",
     img: img9,
   },
   {
+    id: 3,
     name: "Men Round Neck Pure Cotton T-shirt",
     price: "149",
     img: img10,
   },
   {
+    id: 4,
     name: "Women Round Neck Cotton Top",
     price: "149",
     img: img11,
   },
   {
+    id: 5,
     name: "Men Printed Plain Cotton Shirt",
     price: "149",
     img: img12,
   },
   {
+    id: 6,
     name: "Woman Round Neck Cotton Top",
     price: "149",
     img: img13,
   },
   {
+    id: 7,
     name: "Men Round Neck Pure Cotton T-shirt",
     price: "149",
     img: img14,
   },
   {
+    id: 8,
     name: "Men Round Neck Pure Cotton T-shirt",
     price: "149",
     img: img15,
   },
   {
+    id: 9,
     name: "Men Round Neck Pure Cotton T-shirt",
     price: "149",
     img: img16,
   },
   {
+    id: 10,
     name: "Men Round Neck Pure Cotton T-shirt",
     price: "149",
     img: img17,

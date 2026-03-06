@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { images } from "../../assets/data";
 
 const Navbar = () => {
-  const [active, setActive]=useState("HOME");
+  const [active, setActive] = useState("HOME");
 
   return (
     <div className="flex mt-5 px-5 lg:px-0 justify-between max-w-7xl mx-auto items-center">
@@ -30,9 +30,15 @@ const Navbar = () => {
       </ul>
 
       <ul className="flex gap-4 sm:gap-5">
-        <li><img className="w-5 sm:w-6" src={images.search} alt="" /></li>
-        <li><img className="w-5 sm:w-6" src={images.profile} alt="" /></li>
-        <li><img className="w-5 sm:w-6" src={images.vector} alt="" /></li>
+        <li>
+          <img className="w-5 sm:w-5" src={images.search} alt="" />
+        </li>
+        <li>
+          <img className="w-5 sm:w-5" src={images.profile} alt="" />
+        </li>
+        <li>
+          <img className="w-5 sm:w-5" src={images.vector} alt="" />
+        </li>
       </ul>
     </div>
   );

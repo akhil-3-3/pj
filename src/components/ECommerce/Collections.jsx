@@ -1,5 +1,6 @@
 import React from "react";
 import { pics } from "../../assets/data";
+import { Link } from "react-router-dom";
 
 const Collections = () => {
   return (
@@ -17,7 +18,8 @@ const Collections = () => {
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
         {pics.map((item, index) => (
-          <div key={index} className="bg-white">
+          <Link to={`product/${item.id}`}>
+            <div key={index} className="bg-white">
             <div className="overflow-hidden">
               <img
                 src={item.img}
@@ -31,6 +33,7 @@ const Collections = () => {
               <p className="text-sm font-semibold mt-1">${item.price}</p>
             </div>
           </div>
+          </Link>
         ))}
       </div>
     </div>
